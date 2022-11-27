@@ -9,33 +9,19 @@
 #
 
 # ================================================================
-source "includes/colors.sh"
+. includes/colors.sh
+. includes/base_functions.sh
 # ================================================================
 
 MAX_STEPS=10
 
 BASE_APPS="htop nload iptraf"
 
-clear 
+#clear 
+
 # ----------------------------------------------------------------------------------------------------
 # @Header
 # ----------------------------------------------------------------------------------------------------
-Header () {
-	echo "${Green}===========================================================================================${NC}"
-	echo "${Green}=     ${WHITE}########   #######   #######  ######## ##      ##  #######  ########  ##    ##      ${Green}=${NC}"
-	echo "${Green}=     ${WHITE}##     ## ##     ## ##     ##    ##    ##  ##  ## ##     ## ##     ## ##   ##       ${Green}=${NC}"
-	echo "${Green}=     ${WHITE}##     ## ##     ## ##     ##    ##    ##  ##  ## ##     ## ##     ## ##  ##        ${Green}=${NC}"
-	echo "${Green}=     ${WHITE}########  ##     ## ##     ##    ##    ##  ##  ## ##     ## ########  #####         ${Green}=${NC}"
-	echo "${Green}=     ${WHITE}##   ##   ##     ## ##     ##    ##    ##  ##  ## ##     ## ##   ##   ##  ##        ${Green}=${NC}"
-	echo "${Green}=     ${WHITE}##    ##  ##     ## ##     ##    ##    ##  ##  ## ##     ## ##    ##  ##   ##       ${Green}=${NC}"
-	echo "${Green}=     ${WHITE}##     ##  #######   #######     ##     ###  ###   #######  ##     ## ##    ##      ${Green}=${NC}"
-	echo "${Green}===========================================================================================${NC}"
-	echo "${Green}=${White}                                   Server Setup Script                                   ${Green}="
-	echo "${Green}=${White}                                      Version 1.0.0                                      ${Green}="
-	echo "${Green}=${White}                             By Kobunix <kobunix@rootwork.eu>                            ${Green}="
-	echo "${Green}===========================================================================================${NC}"
-}
-
 Setup_Basics (){
 
 	echo "${RED}[ Step 1/${MAX_STEPS} ]\t ${WHITE}Checking for system updates ${NC}"
@@ -52,9 +38,9 @@ Setup_Basics (){
 
 if [ -z "$1" ]; then
 	Header
-
 else
 	Header
+	
 	if [ "$1" = "basic" ]; then
 		Setup_Basics
 	fi
