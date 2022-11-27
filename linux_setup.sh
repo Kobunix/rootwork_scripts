@@ -13,14 +13,29 @@
 . includes/base_functions.sh
 # ================================================================
 
+SCRIPTNAME="Linux Server Setup"
+
 MAX_STEPS=10
 
 BASE_APPS="htop nload iptraf"
 
-#clear 
+clear 
 
 # ----------------------------------------------------------------------------------------------------
-# @Header
+# @Tips
+# ----------------------------------------------------------------------------------------------------
+Tips () {
+	echo "${Green}=${White}                                  ${RED}Availables Commands                                    ${Green}="
+	echo "${Green}= ======================================================================================= ="
+	echo "${Green}=                                                                                         ="
+	echo "${Green}=   ${RED}update\t\t${White}Check for system update${Green}                                           ="
+	echo "${Green}=   ${RED}default\t\t${White}Install basic packages for your Linux Server${Green}                      ="
+	echo "${Green}=                                                                                         ="
+	echo "${Green}===========================================================================================${NC}"
+}
+
+# ----------------------------------------------------------------------------------------------------
+# @Setups
 # ----------------------------------------------------------------------------------------------------
 Setup_Basics (){
 
@@ -31,18 +46,32 @@ Setup_Basics (){
 	apt-get upgrade -y > /dev/null 2>&1
 
 	echo "${RED}[ Step 3/${MAX_STEPS} ]\t ${WHITE}Installing base APPS : ${Yellow}${BASE_APPS} ${NC}"
-	# apt-get install -y ${BASE_APPS} > /dev/null 2>&1
+	apt-get install -y ${BASE_APPS} > /dev/null 2>&1
 
 }
 
+Setup_Basics2 (){ 
+	echo "${RED}[ Step 1/${MAX_STEPS} ]\t ${WHITE}Checking for system updates ${NC}" 
+}
 
 if [ -z "$1" ]; then
 	Header
+	Tips
 else
 	Header
 	
-	if [ "$1" = "basic" ]; then
+	if [ "$1" = "default" ]; then
 		Setup_Basics
+
+	elif [ "$1" = "update" ]; then
+		echo "Update"
+	
+	elif [ "$1" = "basic" ]; then
+		Setup_Basics2
+
+	else
+		Header
+		Tips
 	fi
 
 	
