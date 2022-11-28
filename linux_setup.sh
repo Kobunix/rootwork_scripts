@@ -28,8 +28,8 @@ Tips () {
 	echo "${Green}=${White}                                  ${RED}Availables Commands                                    ${Green}="
 	echo "${Green}= ======================================================================================= ="
 	echo "${Green}=                                                                                         ="
-	echo "${Green}=   ${RED}update\t\t${White}Check for system update${Green}                                           ="
-	echo "${Green}=   ${RED}default\t\t${White}Install basic packages for your Linux Server${Green}                      ="
+	echo "${Green}=   ${RED}update\t\t\t${White}Check for system update${Green}                                   ="
+	echo "${Green}=   ${RED}install <base/advanced>\t${White}Install basic packages for your Linux Server${Green}              ="
 	echo "${Green}=                                                                                         ="
 	echo "${Green}===========================================================================================${NC}"
 }
@@ -50,8 +50,11 @@ Setup_Basics (){
 
 }
 
-Setup_Basics2 (){ 
-	echo "${RED}[ Step 1/${MAX_STEPS} ]\t ${WHITE}Checking for system updates ${NC}" 
+Setup_Update (){ 
+	echo "${RED}[ UPDATE ]\t ${WHITE}Checking for system updates ${NC}" 
+	apt-get update
+	echo "${RED}[ UPDATE ]\t ${WHITE}Applying system upgrade (if available)${NC}"
+	apt-get upgrade -y
 }
 
 if [ -z "$1" ]; then
@@ -60,17 +63,44 @@ if [ -z "$1" ]; then
 else
 	Header
 	
-	if [ "$1" = "default" ]; then
-		Setup_Basics
+	# -------------------------------------
+	# INSTALL
+	# -------------------------------------
+	if [ "$1" = "install" ]; then
 
+		if [ -z "$2" ]; then
+			Tips
+		else
+			if [ "$2" = "base" ]; then
+				Setup_Basics
+
+			elif [ "$2" = "advanced" ]; then
+				echo $2
+			
+			else
+				Tips
+			fi
+		fi
+
+	# -------------------------------------
+	# UPDATES
+	# -------------------------------------
 	elif [ "$1" = "update" ]; then
-		echo "Update"
+		Setup_Update
 	
-	elif [ "$1" = "basic" ]; then
-		Setup_Basics2
+	# -------------------------------------
+	# UPDATES
+	# -------------------------------------
 
+	# elif [ "$1" = "basic" ]; then
+	# 	Setup_Basics2
+
+
+	# -------------------------------------
+	# RETURN TO NULL
+	# -------------------------------------
 	else
-		Header
+		# Header
 		Tips
 	fi
 
